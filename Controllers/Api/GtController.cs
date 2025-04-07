@@ -36,4 +36,27 @@ public IActionResult ListarPisos (int pisos){
     var lista = collection.Find(filtro).ToList();
     return Ok(lista);
 }
+
+[HttpGet("listar-fechas")]
+public IActionResult ListarFechas (string fechapublicacion){
+    MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
+    var db = client.GetDatabase("Inmuebles");
+    var collection = db.GetCollection<Inmueble>("RentasVentas");
+
+    var filtro = Builders<Inmueble>.Filter.Gt(x => x.FechaPublicacion, fechapublicacion);
+    var list = collection.Find(filtro).ToList();
+    return Ok(list);
+}
+
+[HttpGet("listar-construccion")]
+public IActionResult ListarMetrosConstruccion (int metrosconstruccion){
+    MongoClient client = new MongoClient(CadenasConexion.MONGO_DB);
+    var db = client.GetDatabase("Inmuebles");
+    var collection = db.GetCollection<Inmueble>("RentasVentas");
+
+    var filtro = Builders<Inmueble>.Filter.Gt(x => x.MetrosConstruccion, metrosconstruccion);
+    var list = collection.Find(filtro).ToList();
+    return Ok(list);
+}
+
 }
